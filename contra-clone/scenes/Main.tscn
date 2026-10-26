@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="2"]
+[ext_resource type="Script" path="res://scripts/Sky.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/MountainLayer.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/Goal.gd" id="5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_goal"]
+size = Vector2(100, 220)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="SkyLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.02, 0)
+
+[node name="Sky" type="Node2D" parent="ParallaxBackground/SkyLayer"]
+script = ExtResource("3")
+
+[node name="FarLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.25, 0.1)
+
+[node name="FarMountains" type="Node2D" parent="ParallaxBackground/FarLayer"]
+script = ExtResource("4")
+peak_color = Color(0.09, 0.1, 0.18, 1)
+base_height = 420.0
+jaggedness = 70.0
+
+[node name="NearLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.55, 0.15)
+
+[node name="NearMountains" type="Node2D" parent="ParallaxBackground/NearLayer"]
+script = ExtResource("4")
+peak_color = Color(0.14, 0.16, 0.22, 1)
+base_height = 480.0
+jaggedness = 110.0
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Goal" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
+position = Vector2(0, -110)
+shape = SubResource("RectangleShape2D_goal")
+
+[node name="Player" parent="." instance=ExtResource("2")]
+position = Vector2(100, 460)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = true
+position = Vector2(100, 300)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 20.0
+offset_top = 14.0
+offset_right = 320.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.5, 1)
+theme_override_font_sizes/font_size = 22
+text = "SCORE 000000"
+
+[node name="LivesLabel" type="Label" parent="HUD"]
+offset_left = 20.0
+offset_top = 44.0
+offset_right = 320.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.5, 1)
+theme_override_font_sizes/font_size = 22
+text = "LIVES 3"
+
+[node name="MessageLabel" type="Label" parent="HUD"]
+offset_left = 62.0
+offset_top = 250.0
+offset_right = 962.0
+offset_bottom = 350.0
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+text = "GAME OVER\nPRESS SPACE TO RESTART"
+visible = false

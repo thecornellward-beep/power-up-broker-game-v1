@@ -5,6 +5,12 @@ classic monochrome vector arcade games: a pure black background with all
 line art drawn in green using Godot's runtime vector drawing API
 (`_draw()` + `draw_line` / `draw_circle`) rather than sprite textures.
 
+This repo also contains a second, separate Godot project,
+[`contra-clone/`](contra-clone/README.md) ("Ridge Assault") — a one-stage
+8-bit-style run-and-gun platformer set in mountainous terrain. It has its
+own `project.godot` and must be opened independently in the Godot editor;
+see its own README for details.
+
 ## Requirements
 
 Godot **4.3** or later (uses the GL Compatibility renderer for broad
